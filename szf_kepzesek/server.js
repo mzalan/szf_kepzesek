@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config(); // A .env fájlt olvassa
 const trainingsRoutes = require('./routes/trainings.routes')
 const mongoose = require("mongoose");
+const qs = require('qs');
 mongoose.set("strictQuery", true);
 const mongoString = process.env.DATABASE_URL;
 mongoose.connect(mongoString);
@@ -14,7 +15,9 @@ database.once("connected", () => {
 });
 const app = express()
 app.use(express.json())
-app.use('/api', trainingsRoutes)
+app.set('query parser', str => qs.parse(str));
+
+app.use('/api/trainings', trainingsRoutes)
 
 app.listen(3000, ()=>{
     console.log('Server started')

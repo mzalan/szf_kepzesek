@@ -8,3 +8,4 @@ router.get('/', trainings.getAllTraining)
 router.get('/:id', trainings.getTraining)
 
 module.exports = router;
+console.log("Trainings router loaded");
